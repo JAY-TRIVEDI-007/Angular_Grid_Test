@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## REFERENCES
+
+1. [SyncFusion Grid Docs](https://ej2.syncfusion.com/angular/documentation/grid/getting-started/)
+2. [SyncFusion Grid YT Video](https://www.youtube.com/watch?v=D4P3mwziISE)
+

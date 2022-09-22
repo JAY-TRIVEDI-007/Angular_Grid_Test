@@ -1,0 +1,45 @@
+{
+	"Questions": [{
+			"questionID": "101",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		},
+		{
+			"questionID": "102",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		},
+		{
+			"questionID": "103",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		},
+		{
+			"questionID": "103",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		},
+		{
+			"questionID": "104",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		},
+		{
+			"questionID": "105",
+			"name": "Why do we use it?",
+			"difficulty": "Easy",
+			"type": "True or False",
+			"questionBanks": 5
+		}
+	]
+}
