@@ -26,6 +26,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## ToDO
+
+1. [X] Init Project
+2. [X] Install SyncFusion
+3. [X] Configure License of SyncFusion
+4. [X] Create Required Components
+5. [X] Add In-Memory-WebAPI
+6. [X] Understand Grid usage and functionality
+7. [ ] Add Data Service API
+8. [ ] Integrate Data Service API
+9. [X] Add CRUD Operation
+10. [ ] Add Events
+11. [ ] Add Functionality
+
 
 ## REFERENCES
 
