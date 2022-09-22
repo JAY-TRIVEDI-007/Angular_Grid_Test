@@ -38,8 +38,26 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 8. [X] Integrate Data Service API
 9. [X] Add CRUD Operation
 10. [X] Add Functionality
-11. [ ] Add Grid for Question-Bank
+11. [X] Add Grid for Question-Bank
 
+
+## What I learn?
+
+  I understand how syncfusion's components can be integrated in Angular and customized it.
+  How syncfusion has divided their functionality in services and components?
+  How to add Grid and add functionality like CRUD?
+  How to bind data in grid with various data sources?
+  How to persist data with data source when grid modified?
+  
+
+## What I did in Project?
+
+  I follow above listed steps in ToDo.
+  There is Main Home Component.
+  There are 2 Pages for Question and QuestionBank.
+  I have added default grid without much customizing.
+  I have added In-Memory-Api to Mock Backend.
+  I have bind data to Grid with "Async Pipe".
 
 ## REFERENCES
 
