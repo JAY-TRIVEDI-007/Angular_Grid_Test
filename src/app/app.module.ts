@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { QuestionComponent } from './question/question.component';
 import { QuestionsBankComponent } from './questions-bank/questions-bank.component';
 import { HomeComponent } from './home/home.component';
+import {GridModule} from "@syncfusion/ej2-angular-grids";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
