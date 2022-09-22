@@ -7,18 +7,19 @@ import { QuestionComponent } from './question/question.component';
 import { QuestionsBankComponent } from './questions-bank/questions-bank.component';
 import { HomeComponent } from './home/home.component';
 import {
-  ContextMenu, ContextMenuService,
-  EditService, ExcelExport, ExcelExportService,
+  ContextMenuService,
+  EditService,
   FilterService,
   GridModule,
   GroupService,
-  PageService, PdfExport, PdfExportService, ResizeService, SearchService,
+  PageService, ResizeService, SearchService,
   SortService,
-  SortSettings, ToolbarService
+  ToolbarService
 } from "@syncfusion/ej2-angular-grids";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
-import {QuestionsData} from "./shared/questions-data";
-import {QuestionBankData} from "./shared/question_bank-data";
+import {QuestionsDataAPI} from "./shared/questions-data";
+import {CommonModule} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,11 +29,13 @@ import {QuestionBankData} from "./shared/question_bank-data";
     HomeComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     GridModule,
-    InMemoryWebApiModule.forRoot(QuestionsData),
-    InMemoryWebApiModule.forRoot(QuestionBankData),
+    InMemoryWebApiModule.forRoot(QuestionsDataAPI),
+    // InMemoryWebApiModule.forRoot(QuestionBankData),
   ],
   providers: [
     PageService,
@@ -42,8 +45,6 @@ import {QuestionBankData} from "./shared/question_bank-data";
     EditService,
     ToolbarService,
     SearchService,
-    PdfExportService,
-    ExcelExportService,
     ResizeService,
     ContextMenuService
   ],

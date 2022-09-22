@@ -1,6 +1,5 @@
 <h1 class="header">Questions Grid</h1>
 
-
 <!--<div class="e-float-input" style="width: 200px; display: inline-block;">-->
 <!--  <input type="text" id="searchtext" class="searchtext" (change)="search()"/>-->
 <!--  <span class="e-float-line"></span>-->
@@ -8,9 +7,10 @@
 <!--</div>-->
 <!--<button id="search" (click)="search()">Search</button>-->
 
-<ejs-grid #queGrid [dataSource]="questions" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
+<ejs-grid #queGrid [dataSource]="questions | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
           [pageSettings]="pageSettings" [toolbar]="toolbarOptions" [editSettings]="editOptions" [searchSettings]="searchOption"
-  [allowPdfExport]="true" [allowExcelExport]="true">
+[contextMenuItems]="contextMenuItems">
+<!--  [allowPdfExport]="true" [allowExcelExport]="true">-->
   <e-columns>
     <e-column field="name" headerText="Name"></e-column>
     <e-column field="difficulty" headerText="Difficulty"></e-column>
@@ -18,3 +18,7 @@
     <e-column field="questionBanks" headerText="Total Questions"></e-column>
   </e-columns>
 </ejs-grid>
+
+<div class="error" style="margin-top: 50px; font-weight: bold; color: red;">
+  <p>{{errorMsg}}</p>
+</div>

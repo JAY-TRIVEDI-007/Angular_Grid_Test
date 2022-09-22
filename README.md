@@ -34,11 +34,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 4. [X] Create Required Components
 5. [X] Add In-Memory-WebAPI
 6. [X] Understand Grid usage and functionality
-7. [ ] Add Data Service API
-8. [ ] Integrate Data Service API
+7. [X] Add Data Service API
+8. [X] Integrate Data Service API
 9. [X] Add CRUD Operation
-10. [ ] Add Events
-11. [ ] Add Functionality
+10. [X] Add Functionality
+11. [ ] Add Grid for Question-Bank
 
 
 ## REFERENCES
