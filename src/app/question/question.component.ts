@@ -1,5 +1,5 @@
 import {Component, Inject, Injectable, OnInit, ViewChild} from '@angular/core';
-import {IQuestion} from '../shared/questions';
+import {IQuestion} from '../shared/questions.interface';
 import {
   ContextMenuItem,
   EditSettingsModel, GridComponent,
@@ -38,7 +38,14 @@ export class QuestionComponent implements OnInit {
   //   adaptor: new ODataV4Adaptor()
   // });
 
-  constructor(@Inject(DOCUMENT) private document: Document, private dataService: DataService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private dataService: DataService) {
+    // Question
+    this.questions = this.dataService.getQuestions();
+    // .subscribe({
+    // next: questions => {this.questions = questions; console.log("Questions -> ", questions);},
+    // error: err => this.errorMsg = err
+    // });
+  }
 
   ngOnInit(): void {
     // Set options
@@ -51,13 +58,6 @@ export class QuestionComponent implements OnInit {
     this.editOptions = {allowAdding: true, allowEditing: true, allowDeleting: true, mode: 'Normal'};
     this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
     this.contextMenuItems = ['Copy', 'Edit', 'Delete', 'Save', 'Cancel'];
-
-    // Question
-    this.questions = this.dataService.getQuestions();
-      // .subscribe({
-      // next: questions => {this.questions = questions; console.log("Questions -> ", questions);},
-      // error: err => this.errorMsg = err
-    // });
   }
 
 

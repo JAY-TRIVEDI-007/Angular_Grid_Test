@@ -1,1 +1,21 @@
-<p>questions-bank works!</p>
+<h1 class="header" style="margin: 50px auto;">Question Bank Grid</h1>
+
+<ejs-grid #queGrid [dataSource]="questionBank | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
+          [pageSettings]="pageSettings" [toolbar]="toolbarOptions" [editSettings]="editOptions" [searchSettings]="searchOption"
+          [contextMenuItems]="contextMenuItems">
+  <e-columns>
+    <e-column field="contentID" headerText="ID"></e-column>
+    <e-column field="name" headerText="Name"></e-column>
+    <e-column field="description" headerText="Description"></e-column>
+    <e-column field="assignedOn" headerText="Assigned Date"></e-column>
+    <e-column field="lastModifiedOn" headerText="Last Modified"></e-column>
+    <e-column field="author" headerText="Author"></e-column>
+    <e-column field="cmeCredits" headerText="Is cmeCredits?"></e-column>
+    <e-column field="graded" headerText="Is Graded?"></e-column>
+    <e-column field="actions" headerText="Actions"></e-column>
+  </e-columns>
+</ejs-grid>
+
+<div class="error" style="margin-top: 50px; font-weight: bold; color: red;">
+  <p>{{errorMsg}}</p>
+</div>

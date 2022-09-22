@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {IQuestion} from "./questions";
+import {IQuestion} from "./questions.interface";
 import {catchError, Observable, tap, throwError} from "rxjs";
+import {IQuestionBank} from "./question-bank.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class DataService {
     );
   }
 
-  getQuestionBank(): Observable<IQuestion[]> {
-    return this.http.get<IQuestion[]>(this.questionBankUrl).pipe(
+  getQuestionBank(): Observable<IQuestionBank[]> {
+    return this.http.get<IQuestionBank[]>(this.questionBankUrl).pipe(
          tap(data => console.log('Question Bank All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
