@@ -11,7 +11,7 @@ import {
   EditService,
   FilterService,
   GridModule,
-  GroupService,
+  // GroupService,
   PageService, ResizeService, SearchService,
   SortService,
   ToolbarService
@@ -41,7 +41,7 @@ import {HttpClientModule} from "@angular/common/http";
     PageService,
     SortService,
     FilterService,
-    GroupService,
+    // GroupService,
     EditService,
     ToolbarService,
     SearchService,
