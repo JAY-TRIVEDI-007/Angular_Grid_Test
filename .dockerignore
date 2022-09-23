@@ -1,0 +1,8 @@
+.angular/
+*.md
+package-lock.json
+syncfusion-license.txt
+node_modules/
+Dockerfile
+Dockerfile_dist
+dist/
