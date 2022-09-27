@@ -1,7 +1,25 @@
 <h1 class="header" style="margin: 50px auto;">Question Bank Grid</h1>
 
+<div class="toolbar container">
+  <div class="input-group">
+    <button class="btn btn-primary">
+      <i class="fa fa-plus"></i>
+      Add Question Bank
+    </button>
+  </div>
+
+  <div class="input-group">
+    <div class="form-outline">
+      <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
+    </div>
+    <button id="search-button" type="button" class="btn btn-primary" (click)="search()">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+
 <ejs-grid #queGrid [dataSource]="questionBank | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
-          [pageSettings]="pageSettings" [toolbar]="toolbarOptions" [editSettings]="editOptions" [searchSettings]="searchOption"
+          [filterSettings]="filterOptions" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption"
           [contextMenuItems]="contextMenuItems">
   <e-columns>
     <e-column field="contentID" headerText="ID"></e-column>
@@ -13,6 +31,7 @@
     <e-column field="cmeCredits" headerText="Is cmeCredits?"></e-column>
     <e-column field="graded" headerText="Is Graded?"></e-column>
     <e-column field="actions" headerText="Actions"></e-column>
+    <e-column headerText="Action" disableHtmlEncode="true"></e-column>
   </e-columns>
 </ejs-grid>
 

@@ -2,7 +2,7 @@ import {Component, Inject, Injectable, OnInit, ViewChild} from '@angular/core';
 import {IQuestion} from '../shared/questions.interface';
 import {
   ContextMenuItem,
-  EditSettingsModel, GridComponent,
+  EditSettingsModel, FilterSettingsModel, GridComponent,
   PageSettingsModel,
   SearchSettingsModel,
   ToolbarItems
@@ -10,6 +10,7 @@ import {
 import {DOCUMENT} from "@angular/common";
 import {DataService} from "../shared/data.service";
 import {Observable} from "rxjs";
+import { Button } from '@syncfusion/ej2-buttons';
 
 @Component({
   selector: 'app-question',
@@ -21,6 +22,8 @@ export class QuestionComponent implements OnInit {
   @ViewChild('queGrid') gridRef!: GridComponent;
 
   questions!: Observable<IQuestion[]>;
+  errorMsg: string = '';
+
   // Grid Paging option
   pageSettings!: PageSettingsModel;
   // Edit option
@@ -29,9 +32,10 @@ export class QuestionComponent implements OnInit {
   toolbarOptions!: ToolbarItems[];
   // Search Option
   searchOption!: SearchSettingsModel;
+  // Filter options
+  filterOptions!: FilterSettingsModel;
   // CustomMenuItems
   contextMenuItems!: ContextMenuItem[];
-  errorMsg: string = '';
 
   // dataManager: DataManager = new DataManager({
   //   url: 'api/questions',
@@ -51,20 +55,24 @@ export class QuestionComponent implements OnInit {
     // Set options
     this.pageSettings = {pageSize: 5};
     this.searchOption = {
-      fields: ['name', 'difficulty', 'type', 'questionBanks'],
+      fields: ['questionID', 'name', 'difficulty', 'type', 'questionBanks'],
       operator: 'contains',
       ignoreCase: true
     };
     this.editOptions = {allowAdding: true, allowEditing: true, allowDeleting: true, mode: 'Normal'};
-    this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
+    // this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
+    this.filterOptions = {type: 'Menu'};
     this.contextMenuItems = ['Copy', 'Edit', 'Delete', 'Save', 'Cancel'];
   }
 
-
   search(): void {
-    const searchText: string = (this.document.getElementById('searchtext') as any).value;
-    this.gridRef.search(searchText);
-    console.log(searchText);
+    const searchText: string = (this.document.getElementById('search-input') as any).value;
+    if (searchText) {
+      this.gridRef.search(searchText);
+    }
+    else {
+      this.gridRef.searchSettings.key = '';
+    }
   }
 
 }

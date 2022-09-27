@@ -1,0 +1,9 @@
+.toolbar {
+  display: inline-flex;
+  margin: 25px 0;
+}
+
+.input-group {
+  display: inline-flex !important;
+  /*align-items: flex-start !important;*/
+}

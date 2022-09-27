@@ -7,6 +7,7 @@ import { QuestionComponent } from './question/question.component';
 import { QuestionsBankComponent } from './questions-bank/questions-bank.component';
 import { HomeComponent } from './home/home.component';
 import {
+  CommandColumnService,
   ContextMenuService,
   EditService,
   FilterService,
@@ -46,7 +47,8 @@ import {HttpClientModule} from "@angular/common/http";
     ToolbarService,
     SearchService,
     ResizeService,
-    ContextMenuService
+    ContextMenuService,
+    CommandColumnService
   ],
   bootstrap: [AppComponent]
 })

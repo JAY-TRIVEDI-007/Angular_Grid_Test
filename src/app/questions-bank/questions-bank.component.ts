@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../shared/data.service";
 import {
   ContextMenuItem,
-  EditSettingsModel,
+  EditSettingsModel, FilterSettingsModel,
   GridComponent,
   PageSettingsModel,
   SearchSettingsModel,
@@ -10,6 +10,7 @@ import {
 } from "@syncfusion/ej2-angular-grids";
 import {IQuestionBank} from "../shared/question-bank.interface";
 import {Observable} from "rxjs";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-questions-bank',
@@ -22,6 +23,8 @@ export class QuestionsBankComponent implements OnInit {
 
   // Data Source
   questionBank!: Observable<IQuestionBank[]>;
+  errorMsg: string = '';
+
   // questionBank!: IQuestionBank[];
   // Grid Paging option
   pageSettings!: PageSettingsModel;
@@ -31,11 +34,12 @@ export class QuestionsBankComponent implements OnInit {
   toolbarOptions!: ToolbarItems[];
   // Search Option
   searchOption!: SearchSettingsModel;
+  // Filter options
+  filterOptions!: FilterSettingsModel;
   // CustomMenuItems
   contextMenuItems!: ContextMenuItem[];
-  errorMsg: string = '';
 
-  constructor(private dataService: DataService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private dataService: DataService) {
     // Question Bank Source from the mock API
     this.questionBank = this.dataService.getQuestionBank();
       // .subscribe({
@@ -48,13 +52,24 @@ export class QuestionsBankComponent implements OnInit {
     // Set options
     this.pageSettings = {pageSize: 5};
     this.searchOption = {
-      fields: ['name', 'difficulty', 'type', 'questionBanks'],
+      fields: ['contentID', 'name', 'difficulty', 'type', 'questionBanks'],
       operator: 'contains',
       ignoreCase: true
     };
     this.editOptions = {allowAdding: true, allowEditing: true, allowDeleting: true, mode: 'Normal'};
-    this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
+    // this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
+    this.filterOptions = {type: 'Menu'};
     this.contextMenuItems = ['Copy', 'Edit', 'Delete', 'Save', 'Cancel'];
+  }
+
+  search(): void {
+    const searchText: string = (this.document.getElementById('search-input') as any).value;
+    if (searchText) {
+      this.gridRef.search(searchText);
+    }
+    else {
+      this.gridRef.searchSettings.key = '';
+    }
   }
 
 }
