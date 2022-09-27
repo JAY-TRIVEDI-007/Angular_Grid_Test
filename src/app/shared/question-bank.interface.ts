@@ -1,5 +1,5 @@
 export interface IQuestionBank {
-  contentID: string;
+  contentID: number;
   name: string;
   description: string;
   assignedOn: string;
