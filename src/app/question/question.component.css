@@ -7,3 +7,15 @@
   display: inline-flex !important;
   /*align-items: flex-start !important;*/
 }
+
+.close {
+  border: none;
+}
+
+.form-label {
+  margin-top: 7px;
+}
+
+.options {
+  background-color: transparent !important;
+}

@@ -21,6 +21,11 @@ import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {QuestionsDataAPI} from "./shared/questions-data";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {DropDownButtonModule} from "@syncfusion/ej2-angular-splitbuttons";
+import {DialogModule} from "@syncfusion/ej2-angular-popups";
+// import {DropDownListAllModule, DropDownTreeAllModule} from "@syncfusion/ej2-angular-dropdowns";
+// import {CheckBoxAllModule} from "@syncfusion/ej2-angular-buttons";
 
 @NgModule({
   declarations: [
@@ -34,9 +39,12 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropDownButtonModule,
+    DialogModule,
     GridModule,
     InMemoryWebApiModule.forRoot(QuestionsDataAPI),
-    // InMemoryWebApiModule.forRoot(QuestionBankData),
   ],
   providers: [
     PageService,
@@ -44,11 +52,9 @@ import {HttpClientModule} from "@angular/common/http";
     FilterService,
     // GroupService,
     EditService,
-    ToolbarService,
     SearchService,
     ResizeService,
-    ContextMenuService,
-    CommandColumnService
+    ContextMenuService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,35 +1,142 @@
-<h1 class="header" style="margin: 50px auto;">Questions Grid</h1>
+<h1 class="header text-center" style="margin: 50px auto;">Questions Grid</h1>
 
 <div class="toolbar container">
-    <div class="input-group">
-      <button class="btn btn-primary">
-        <i class="fa fa-plus"></i>
-        Add Question
-      </button>
+    <div class="col-12">
+      <div class="input-group">
+<!--        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecordModal" (click)="openModal()">-->
+        <button class="btn btn-primary" (click)="openModal()">
+          <i class="fa fa-plus"></i>
+          Add Question
+        </button>
+      </div>
     </div>
 
-    <div class="input-group">
-      <div class="form-outline">
-        <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
+    <div class="col-7">
+      <div class="input-group align-self-end">
+        <div class="form-outline">
+          <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
+        </div>
+        <button id="search-button" type="button" class="btn btn-primary" (click)="search()">
+          <i class="fa fa-search"></i>
+        </button>
       </div>
-      <button id="search-button" type="button" class="btn btn-primary" (click)="search()">
-        <i class="fa fa-search"></i>
-      </button>
     </div>
+</div>
+
+<!-- Modal -->
+<!--<div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" aria-labelledby="addRecordLongTitle" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="addRecordLongTitle">Add Record</h5>-->
+<!--        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+<!--          <i class="fa fa-close"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <form [formGroup]="gridForm" novalidate>-->
+<!--        <div class="modal-body">-->
+<!--              <label for="nameInput" class="form-label">Enter Question:</label>-->
+<!--              <input type="text" name="name" class="form-control" id="nameInput" formControlName="name"-->
+<!--                     [ngClass]="{'is-invalid': (nameControl?.touched || nameControl?.dirty) && !nameControl?.valid }" />-->
+<!--              <span class="invalid-feedback">-->
+<!--                <span *ngIf="nameControl?.errors">-->
+<!--                    Please enter question.-->
+<!--                </span>-->
+<!--              </span>-->
+
+<!--              <label for="difficultyLevel" class="form-label">Select Difficulty Level:</label>-->
+<!--              <select name="difficulty" class="form-select" id="difficultyLevel" formControlName="difficulty">-->
+<!--                <option value="Easy">Easy</option>-->
+<!--                <option value="Medium">Medium</option>-->
+<!--                <option value="Hard">Hard</option>-->
+<!--              </select>-->
+
+<!--              <label for="typeInput" class="form-label">Enter Question Type:</label>-->
+<!--              <input type="text" name="type" class="form-control" id="typeInput" formControlName="type">-->
+
+<!--              <label for="questionBank" class="form-label">Select Question Bank:</label>-->
+<!--              <select name="questionBank" class="form-select" id="questionBank" formControlName="questionBanks">-->
+<!--                  <option *ngFor="let qb of questionBanks" value="{{qb.contentID}}">{{qb.name}}</option>-->
+<!--              </select>-->
+<!--        </div>-->
+
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"-->
+<!--                  [style.cursor]="gridForm.valid ? 'pointer' : 'not-allowed'"-->
+<!--                  [disabled]="!gridForm.valid" (click)="saveAddForm()">Add Question</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div #dialogContainer class='root-container'>
+
+  <ejs-dialog #recordFromModal [isModal]="true" [showCloseIcon]="true" [visible]="false" width="560px" closeOnEscape="true" [target]="'.root-container'">
+    <ng-template #header>
+      <h5>Add Record</h5>
+    </ng-template>
+
+    <ng-template #content>
+      <form [formGroup]="gridForm" novalidate>
+          <label for="nameInput" class="form-label">Enter Question:</label>
+          <input type="text" name="name" class="form-control" id="nameInput" formControlName="name"
+                 [ngClass]="{'is-invalid': (nameControl?.touched || nameControl?.dirty) && !nameControl?.valid }" />
+          <span class="invalid-feedback">
+                  <span *ngIf="nameControl?.errors">
+                      Please enter question.
+                  </span>
+                </span>
+
+          <label for="difficultyLevel" class="form-label">Select Difficulty Level:</label>
+          <select name="difficulty" class="form-select" id="difficultyLevel" formControlName="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+
+          <label for="typeInput" class="form-label">Enter Question Type:</label>
+          <input type="text" name="type" class="form-control" id="typeInput" formControlName="type">
+
+          <label for="questionBank" class="form-label">Select Question Bank:</label>
+          <select name="questionBank" class="form-select" id="questionBank" formControlName="questionBanks">
+            <option *ngFor="let qb of questionBanks" value="{{qb.contentID}}">{{qb.name}}</option>
+          </select>
+      </form>
+    </ng-template>
+
+    <ng-template #footerTemplate>
+        <button type="button" class="btn btn-secondary" style="margin-right: 20px;" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary"
+                [style.cursor]="gridForm.valid ? 'pointer' : 'not-allowed'"
+                [disabled]="!gridForm.valid" (click)="saveAddForm()">Add Question</button>
+    </ng-template>
+  </ejs-dialog>
 </div>
 
 <ejs-grid #queGrid [dataSource]="questions | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
           [allowResizing]="true" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption" [filterSettings]="filterOptions" [contextMenuItems]="contextMenuItems">
   <e-columns>
-    <e-column field="questionID" headerText="ID" isPrimaryKey="true"></e-column>
+    <e-column field="questionID" headerText="ID" isPrimaryKey="true" [visible]="false"></e-column>
     <e-column field="name" headerText="Name"></e-column>
     <e-column field="difficulty" headerText="Difficulty"></e-column>
     <e-column field="type" headerText="Type"></e-column>
     <e-column field="questionBanks" headerText="Question Bank ID"></e-column>
-    <e-column headerText="Action" disableHtmlEncode="true"></e-column>
+    <e-column headerText="Action" [allowEditing]="false">
+      <ng-template #template let-data>
+        <button class="options" ejs-dropdownbutton [items]="actionList" cssClass='e-caret-hide' iconCss="fa fa-ellipsis-v" (select)="performAction($event, data)">
+        </button>
+      </ng-template>
+    </e-column>
   </e-columns>
 </ejs-grid>
 
 <div class="error" style="margin-top: 50px; font-weight: bold; color: red;">
   <p>{{errorMsg}}</p>
+<!--  <h4>Form Data</h4>-->
+<!--  <p>Dirty: {{gridForm.dirty}}</p>-->
+<!--  <p>Touched: {{gridForm.touched}}</p>-->
+<!--  <p>Valid: {{gridForm.valid}}</p>-->
+<!--  <p>Value: {{gridForm.value | json}}</p>-->
 </div>

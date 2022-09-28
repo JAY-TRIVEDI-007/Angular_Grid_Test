@@ -16,14 +16,14 @@ export class DataService {
 
   getQuestions(): Observable<IQuestion[]> {
     return this.http.get<IQuestion[]>(this.dataUrl).pipe(
-         tap(data => console.log('Questions All: ', JSON.stringify(data))),
+         // tap(data => console.log('Questions All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
   getQuestionBank(): Observable<IQuestionBank[]> {
     return this.http.get<IQuestionBank[]>(this.questionBankUrl).pipe(
-         tap(data => console.log('Question Bank All: ', JSON.stringify(data))),
+         // tap(data => console.log('Question Bank All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
