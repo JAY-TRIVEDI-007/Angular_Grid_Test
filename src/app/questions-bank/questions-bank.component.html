@@ -1,28 +1,133 @@
-<h1 class="header" style="margin: 50px auto;">Question Bank Grid</h1>
+<h1 class="header text-center" style="margin: 50px auto;">Question Bank Grid</h1>
 
 <div class="toolbar container">
-  <div class="input-group">
-    <button class="btn btn-primary">
-      <i class="fa fa-plus"></i>
-      Add Question Bank
-    </button>
+  <div class="col-5">
+    <div class="input-group">
+      <button class="btn btn-primary" (click)="openModal()">
+        <i class="fa fa-plus"></i>
+        Add Question Bank
+      </button>
+    </div>
   </div>
 
-  <div class="input-group">
-    <div class="form-outline">
-      <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
+  <div class="col-6">
+    <div class="alert d-flex align-items-center alert-dismissible fade show" role="alert" style="width: fit-content;"
+         *ngIf="errorMsg || successMsg" [ngClass]="{'alert-success': successMsg, 'alert-danger': errorMsg}">
+      <i class="fa bi flex-shrink-0 me-2" style="font-size: 20px;" role="img"
+         [ngClass]="{'fa-info-circle': successMsg, 'fa-warning': errorMsg}"></i>
+      <div class="text-center">
+        {{successMsg || errorMsg}}
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
     </div>
-    <button id="search-button" type="button" class="btn btn-primary" (click)="search()">
-      <i class="fa fa-search"></i>
-    </button>
+  </div>
+
+  <div class="col-5">
+    <div class="input-group">
+      <div class="form-outline">
+        <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
+      </div>
+      <button id="search-button" type="button" class="btn btn-primary" (click)="search()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
   </div>
 </div>
 
+
+<div #dialogContainer class='root-container'>
+
+  <ejs-dialog #recordFromModal [isModal]="true" [showCloseIcon]="true" [visible]="false" width="560px" closeOnEscape="true" [target]="'.root-container'">
+    <ng-template #header>
+      <h5>Add Record</h5>
+    </ng-template>
+
+    <ng-template #content>
+      <form [formGroup]="gridForm" novalidate>
+          <label for="nameInput" class="form-label">Enter Question Bank:</label>
+          <input type="text" name="name" class="form-control" id="nameInput" formControlName="name"
+                 [ngClass]="{'is-invalid': (nameControl?.touched || nameControl?.dirty) && !nameControl?.valid }" />
+          <span class="invalid-feedback">
+              <span *ngIf="nameControl?.errors">
+                  Please enter question.
+              </span>
+          </span>
+
+          <label for="description" class="form-label">Enter Description:</label>
+          <input type="text" name="description" class="form-control" id="description" formControlName="description"
+                 [ngClass]="{'is-invalid': (description?.touched || description?.dirty) && !description?.valid }" />
+          <span class="invalid-feedback">
+              <span *ngIf="description?.errors">
+                  Please enter description.
+              </span>
+          </span>
+
+          <label for="assigned" class="form-label">Assign Date:</label>
+          <input type="date" name="assigned" class="form-control" id="assigned" formControlName="assignedOn"
+                 [ngClass]="{'is-invalid': (assigned?.touched || assigned?.dirty) && !assigned?.valid }"/>
+          <span class="invalid-feedback">
+                <span *ngIf="assigned?.errors">
+                    Please select assigned date.
+                </span>
+            </span>
+
+          <label for="lastModifiedOn" class="form-label">Modified Date:</label>
+          <input type="date" name="lastModifiedOn" class="form-control" id="lastModifiedOn" formControlName="lastModifiedOn"
+                 [ngClass]="{'is-invalid': (lastModified?.touched || lastModified?.dirty) && !lastModified?.valid }"/>
+          <span class="invalid-feedback">
+              <span *ngIf="lastModified?.errors">
+                  Please select last modified date.
+              </span>
+          </span>
+
+          <label for="author" class="form-label">Enter Author Name:</label>
+          <input type="text" name="author" class="form-control" id="author" formControlName="author"
+                 [ngClass]="{'is-invalid': (author?.touched || author?.dirty) && !author?.valid }" />
+          <span class="invalid-feedback">
+              <span *ngIf="author?.errors">
+                  Please enter author.
+              </span>
+          </span>
+
+          <div class="form-check">
+            <input type="checkbox" name="cmeCredits" class="form-check-input" id="cmeCredits" formControlName="cmeCredits"
+                   [ngClass]="{'is-invalid': (cmeCredits?.touched || cmeCredits?.dirty) && !cmeCredits?.valid }" value="Yes" />
+            <label for="cmeCredits" class="form-check-label">Cme Credits?</label>
+            <span class="invalid-feedback">
+              <span *ngIf="cmeCredits?.errors">
+                  Please check cme credits or not.
+              </span>
+            </span>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" name="graded" class="form-check-input" id="graded" formControlName="graded"
+                   [ngClass]="{'is-invalid': (graded?.touched || graded?.dirty) && !graded?.valid }" value="Yes" />
+            <label for="graded" class="form-check-label">Graded?</label>
+            <span class="invalid-feedback">
+              <span *ngIf="graded?.errors">
+                  Please check graded or not.
+              </span>
+            </span>
+          </div>
+
+      </form>
+    </ng-template>
+
+    <ng-template #footerTemplate>
+        <button type="button" class="btn btn-secondary" style="margin-right: 20px;" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary"
+                [style.cursor]="gridForm.valid ? 'pointer' : 'not-allowed'"
+                [disabled]="!gridForm.valid" (click)="saveAddForm()">Save</button>
+    </ng-template>
+  </ejs-dialog>
+</div>
+
 <ejs-grid #queGrid [dataSource]="questionBank | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
-          [filterSettings]="filterOptions" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption"
-          [contextMenuItems]="contextMenuItems">
+          [allowResizing]="true" [filterSettings]="filterOptions" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption">
   <e-columns>
-    <e-column field="contentID" headerText="ID"></e-column>
+    <e-column field="contentID" headerText="ID" [isPrimaryKey]="true" [visible]="false"></e-column>
     <e-column field="name" headerText="Name"></e-column>
     <e-column field="description" headerText="Description"></e-column>
     <e-column field="assignedOn" headerText="Assigned Date"></e-column>
@@ -30,11 +135,21 @@
     <e-column field="author" headerText="Author"></e-column>
     <e-column field="cmeCredits" headerText="Is cmeCredits?"></e-column>
     <e-column field="graded" headerText="Is Graded?"></e-column>
-    <e-column field="actions" headerText="Actions"></e-column>
-    <e-column headerText="Action" disableHtmlEncode="true"></e-column>
+    <e-column field="actions" headerText="Actions" [visible]="false"></e-column>
+    <e-column headerText="Action" [allowEditing]="false">
+      <ng-template #template let-data>
+        <button class="options" ejs-dropdownbutton [items]="actionList" cssClass='e-caret-hide' iconCss="fa fa-ellipsis-v" (select)="performAction($event, data)">
+        </button>
+      </ng-template>
+    </e-column>
   </e-columns>
 </ejs-grid>
 
 <div class="error" style="margin-top: 50px; font-weight: bold; color: red;">
-  <p>{{errorMsg}}</p>
+<!--  <p>{{errorMsg}}</p>-->
+<!--  <h4>Form Data</h4>-->
+<!--  <p>Dirty: {{gridForm.dirty}}</p>-->
+<!--  <p>Touched: {{gridForm.touched}}</p>-->
+<!--  <p>Valid: {{gridForm.valid}}</p>-->
+<!--  <p>Value: {{gridForm.value | json}}</p>-->
 </div>

@@ -1,7 +1,7 @@
 <h1 class="header text-center" style="margin: 50px auto;">Questions Grid</h1>
 
 <div class="toolbar container">
-    <div class="col-12">
+    <div class="col-5">
       <div class="input-group">
 <!--        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecordModal" (click)="openModal()">-->
         <button class="btn btn-primary" (click)="openModal()">
@@ -11,8 +11,21 @@
       </div>
     </div>
 
-    <div class="col-7">
-      <div class="input-group align-self-end">
+    <div class="col-6">
+      <div class="alert d-flex align-items-center alert-dismissible fade show" role="alert" style="width: fit-content;"
+           *ngIf="errorMsg || successMsg" [ngClass]="{'alert-success': successMsg, 'alert-danger': errorMsg}">
+        <i class="fa bi flex-shrink-0 me-2" style="font-size: 20px;" role="img"
+        [ngClass]="{'fa-info-circle': successMsg, 'fa-warning': errorMsg}"></i>
+        <div class="text-center">
+          {{successMsg || errorMsg}}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+      </div>
+    </div>
+
+    <div class="col-5">
+      <div class="input-group">
         <div class="form-outline">
           <input id="search-input" type="search" name="search-input" class="form-control" placeholder="Search" (change)="search()"/>
         </div>
@@ -84,25 +97,43 @@
           <input type="text" name="name" class="form-control" id="nameInput" formControlName="name"
                  [ngClass]="{'is-invalid': (nameControl?.touched || nameControl?.dirty) && !nameControl?.valid }" />
           <span class="invalid-feedback">
-                  <span *ngIf="nameControl?.errors">
-                      Please enter question.
-                  </span>
-                </span>
+            <span *ngIf="nameControl?.errors">
+                Please enter question.
+            </span>
+          </span>
 
           <label for="difficultyLevel" class="form-label">Select Difficulty Level:</label>
-          <select name="difficulty" class="form-select" id="difficultyLevel" formControlName="difficulty">
+          <select name="difficulty" class="form-select" id="difficultyLevel" formControlName="difficulty"
+                  [ngClass]="{'is-invalid': (difficulty?.touched || difficulty?.dirty) && !difficulty?.valid }" >
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
           </select>
+          <span class="invalid-feedback">
+            <span *ngIf="difficulty?.errors">
+                Please select difficulty level.
+            </span>
+          </span>
 
           <label for="typeInput" class="form-label">Enter Question Type:</label>
-          <input type="text" name="type" class="form-control" id="typeInput" formControlName="type">
+          <input type="text" name="type" class="form-control" id="typeInput" formControlName="type"
+                 [ngClass]="{'is-invalid': (typeControl?.touched || typeControl?.dirty) && !typeControl?.valid }">
+          <span class="invalid-feedback">
+            <span *ngIf="typeControl?.errors">
+                Please enter question type.
+            </span>
+          </span>
 
           <label for="questionBank" class="form-label">Select Question Bank:</label>
-          <select name="questionBank" class="form-select" id="questionBank" formControlName="questionBanks">
+          <select name="questionBank" class="form-select" id="questionBank" formControlName="questionBanks"
+                  [ngClass]="{'is-invalid': (questionBank?.touched || questionBank?.dirty) && !questionBank?.valid }">
             <option *ngFor="let qb of questionBanks" value="{{qb.contentID}}">{{qb.name}}</option>
           </select>
+          <span class="invalid-feedback">
+            <span *ngIf="questionBank?.errors">
+                Please select question bank.
+            </span>
+          </span>
       </form>
     </ng-template>
 
@@ -110,13 +141,13 @@
         <button type="button" class="btn btn-secondary" style="margin-right: 20px;" (click)="closeModal()">Close</button>
         <button type="submit" class="btn btn-primary"
                 [style.cursor]="gridForm.valid ? 'pointer' : 'not-allowed'"
-                [disabled]="!gridForm.valid" (click)="saveAddForm()">Add Question</button>
+                [disabled]="!gridForm.valid" (click)="saveAddForm()">Save</button>
     </ng-template>
   </ejs-dialog>
 </div>
 
 <ejs-grid #queGrid [dataSource]="questions | async" [allowPaging]="true" [allowSorting]="true" [allowFiltering]="true"
-          [allowResizing]="true" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption" [filterSettings]="filterOptions" [contextMenuItems]="contextMenuItems">
+          [allowResizing]="true" [pageSettings]="pageSettings" [editSettings]="editOptions" [searchSettings]="searchOption" [filterSettings]="filterOptions">
   <e-columns>
     <e-column field="questionID" headerText="ID" isPrimaryKey="true" [visible]="false"></e-column>
     <e-column field="name" headerText="Name"></e-column>
@@ -132,11 +163,11 @@
   </e-columns>
 </ejs-grid>
 
-<div class="error" style="margin-top: 50px; font-weight: bold; color: red;">
-  <p>{{errorMsg}}</p>
+<!--<div class="error" style="margin-top: 50px; font-weight: bold; color: red;">-->
+<!--  <p>{{errorMsg}}</p>-->
 <!--  <h4>Form Data</h4>-->
 <!--  <p>Dirty: {{gridForm.dirty}}</p>-->
 <!--  <p>Touched: {{gridForm.touched}}</p>-->
 <!--  <p>Valid: {{gridForm.valid}}</p>-->
 <!--  <p>Value: {{gridForm.value | json}}</p>-->
-</div>
+<!--</div>-->

@@ -15,6 +15,8 @@ import {IQuestionBank} from "../shared/question-bank.interface";
 import {ItemModel} from "@syncfusion/ej2-angular-splitbuttons";
 import {DialogComponent} from "@syncfusion/ej2-angular-popups";
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -28,6 +30,7 @@ export class QuestionComponent implements OnInit {
 
   questions!: Observable<IQuestion[]>;
   errorMsg: string = '';
+  successMsg: string = '';
   questionBanks: IQuestionBank[];
   // targetContainer!: HTMLElement;
 
@@ -42,7 +45,7 @@ export class QuestionComponent implements OnInit {
   // Filter options
   filterOptions!: FilterSettingsModel;
   // CustomMenuItems
-  contextMenuItems!: ContextMenuItem[];
+  // contextMenuItems!: ContextMenuItem[];
   // Action DropDown
   actionList: ItemModel[] = [
     {text: 'Edit'},
@@ -66,7 +69,7 @@ export class QuestionComponent implements OnInit {
   get nameControl(): AbstractControl { return this.gridForm.get('name'); }
   get difficulty(): AbstractControl { return this.gridForm.get('difficulty'); }
   get typeControl(): AbstractControl { return this.gridForm.get('type'); }
-  get questionBank(): AbstractControl { return this.gridForm.get('questionBank'); }
+  get questionBank(): AbstractControl { return this.gridForm.get('questionBanks'); }
 
   // dataManager: DataManager = new DataManager({
   //   url: 'api/questions',
@@ -93,7 +96,7 @@ export class QuestionComponent implements OnInit {
     this.editOptions = {allowAdding: true, allowEditing: false, allowDeleting: true, mode: 'Normal'};
     // this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Search'];
     this.filterOptions = {type: 'Menu'};
-    this.contextMenuItems = ['Copy', 'Edit', 'Delete', 'Save', 'Cancel'];
+    // this.contextMenuItems = ['Copy', 'Edit', 'Delete', 'Save', 'Cancel'];
 
     // Dialog
     // this.targetContainer = this.dialogContainer.nativeElement.parentElement;
@@ -146,6 +149,7 @@ export class QuestionComponent implements OnInit {
 
   closeModal(): void {
     this.recordDialog.hide();
+    this.gridForm.reset();
     // this.isEditMode = false;
     // this.editRowIndex = -1;
   }
@@ -158,13 +162,15 @@ export class QuestionComponent implements OnInit {
     // console.log("Edit Mode: "+ this.isEditMode);
     // console.log("Edit Row Index: "+ this.editRowIndex);
 
-     if (record.rowIndex !== -1 && record.questionID !== 0) {
+     if (record.rowIndex !== -1) {
        this.gridRef.updateRow(record.rowIndex, record);
        this.gridRef.refresh();
+       this.successMsg = 'Record Updated.';
        // console.log("Row updated");
      }
      else {
        this.gridRef.addRecord(record);
+       this.successMsg = 'Record Added.';
      }
 
      this.closeModal();
@@ -204,14 +210,24 @@ export class QuestionComponent implements OnInit {
       }
       else if (actionType === "Delete") {
         this.gridRef.deleteRecord('questionID', recordData);
+        this.successMsg = "Record Deleted.";
+        this.hideNotification();
       }
       else {
         this.gridRef.copy();
+        this.successMsg = "Record Copied.";
+        this.hideNotification();
       }
     }
     // console.log(data.index);
     // console.log(data.name);
     // console.log(data.column);
+  }
+
+  private hideNotification(): void {
+    setTimeout( () => {
+      bootstrap.Alert.getOrCreateInstance(this.document.querySelector(".alert")).close();
+    }, 3500);
   }
 
 }
