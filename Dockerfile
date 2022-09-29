@@ -34,4 +34,6 @@ COPY default.conf /etc/nginx/conf.d
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # docker build -t syncfusion-grid:latest --platform=linux/amd64 -f Dockerfile .
+# docker image save syncfusion-grid:latest -o syncfusion_grid_img.zip
+# scp syncfusion_grid_img.zip AWS-EC2:~
 
